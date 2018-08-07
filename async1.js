@@ -30,6 +30,7 @@ window.onload = () => {
 
 //2. Callback functions  $.ajax({type,url,success,error})
 //solving callback hell
+/*
 window.onload = () =>{
     function errorHandler(xhr,status,error){
         console.log(error);
@@ -50,7 +51,7 @@ window.onload = () =>{
             error: errorHandler
         });
     }
-    
+
     function cbweb(web){
         console.log(web);
         return $.ajax({
@@ -63,4 +64,45 @@ window.onload = () =>{
         
         });
     }
+}*/
+
+//3. Promises
+window.onload = () =>{
+    //vanilla js
+    
+    function shankar(url){
+        return new Promise(function(resolve,reject){
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET',url,true);
+            xhr.send();
+            
+            xhr.onload = () =>  {
+                if(xhr.readyState ==4){
+                    return resolve(JSON.parse(xhr.response));
+                }else{
+                   return reject(xhr.statusText);
+                }
+            }
+            xhr.onerror = () => {
+               return  reject(xhr.statusText);
+            }
+
+            
+        })
+    }
+
+    let promise = shankar(('data/js.json'));
+    promise.then(function(js){
+        console.log(js);
+        return shankar(('data/web.json')).then(function(web){
+            console.log(web);
+            return shankar('data/app.json').then(function(app){
+                console.log(app);
+            })
+        })
+    }).catch(function(error){
+        console.log(error);
+    });
+    
+    
 }
