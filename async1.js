@@ -123,7 +123,7 @@ window.onload = () =>{
 //4 Generators
 window.onload = () => {
     //basic operation 
-    
+    /*
     function* generator(){
         let x = yield 10;    //js read codes from left to right so "yield" is there to pause the reading
         console.log(x);
@@ -134,7 +134,32 @@ window.onload = () => {
     gen.next();     // gen.next() starts reading until the "yield" keyword is found. It reads 10 here.
     gen.next(10);   //it puts value 10 after the yield, which is then assigned to x.
     gen.next(6);
-    
+    */
+    //2nd operation
+    genWrap( function* generator(){    //its a function call genWrap() with generator as argument
+        let js = yield $.get('data/js.json');
+        console.log(js);
+        let web = yield $.get('data/web.json');
+        console.log(web);
+        let app = yield $.get('data/app.json');
+        console.log(app);
+     });
+    function genWrap(generator){
+        let gen = generator(); 
+        
+        function handler(yielded){
+            if(!yielded.done){  //yielded.done = "true" if no codes are left to read by js i.e. from right to left 
+                yielded.value.then(function (data){
+                    gen.next(data);   // variables in generator are assigned the "data" i.e. arg of gen.next()
+                    return handler(gen.next(data));
+                });
+            }
+
+        }
+
+        handler(gen.next());  //function call is made
+        
+    }
     
 
 }
