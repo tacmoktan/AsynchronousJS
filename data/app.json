@@ -1,0 +1,8 @@
+{
+    "app":[
+        {
+            "framework":"react"
+        },{
+            "framework":"vue"
+        }]
+}

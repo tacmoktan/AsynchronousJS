@@ -1,0 +1,8 @@
+{
+    "web":[
+        {
+            "library":"bootstrap"
+        },{
+            "library":"jquery"
+        }]
+}

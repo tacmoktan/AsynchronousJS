@@ -1,4 +1,4 @@
-//Requests
+//1. Requests
 /*Note:
 readystate  Request
     0       not initialized
@@ -7,6 +7,7 @@ readystate  Request
     3       in process
     4       complete
 */
+/*
 window.onload = () => {
     //vanilla js
 
@@ -25,4 +26,41 @@ window.onload = () => {
         console.log(data);
     })
 
+}*/
+
+//2. Callback functions  $.ajax({type,url,success,error})
+//solving callback hell
+window.onload = () =>{
+    function errorHandler(xhr,status,error){
+        console.log(error);
+    }
+    $.ajax({
+        type: 'GET',
+        url : "data/js.json",
+        success: cbjs,
+        error:errorHandler
+    });
+
+    function cbjs(js){ //callback function for js
+        console.log(js);
+        return $.ajax({
+            type:'GET',
+            url :"data/web.json",
+            success:cbweb,
+            error: errorHandler
+        });
+    }
+    
+    function cbweb(web){
+        console.log(web);
+        return $.ajax({
+            type:'GET',
+            url:'data/app.json',
+            success: function(data){
+                console.log(data)
+            },
+            error: errorHandler
+        
+        });
+    }
 }
