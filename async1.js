@@ -69,7 +69,7 @@ window.onload = () =>{
 //3. Promises
 window.onload = () =>{
     //vanilla js
-    
+    /*
     function shankar(url){
         return new Promise(function(resolve,reject){
             let xhr = new XMLHttpRequest();
@@ -100,6 +100,19 @@ window.onload = () =>{
                 console.log(app);
             })
         })
+    }).catch(function(error){
+        console.log(error);
+    });
+    */
+    //jquery
+    $.get('data/js.json').then(function(js){
+        console.log(js);
+        return $.get('data/web.json');
+    }).then(function(web){
+        console.log(web);
+        return $.get('data/app.json');
+    }).then(function(app){
+        console.log(app);
     }).catch(function(error){
         console.log(error);
     });
