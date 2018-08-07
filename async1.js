@@ -67,9 +67,10 @@ window.onload = () =>{
 }*/
 
 //3. Promises
+/*
 window.onload = () =>{
     //vanilla js
-    /*
+    
     function shankar(url){
         return new Promise(function(resolve,reject){
             let xhr = new XMLHttpRequest();
@@ -90,7 +91,7 @@ window.onload = () =>{
             
         })
     }
-
+    
     let promise = shankar(('data/js.json'));
     promise.then(function(js){
         console.log(js);
@@ -103,7 +104,7 @@ window.onload = () =>{
     }).catch(function(error){
         console.log(error);
     });
-    */
+    
     //jquery
     $.get('data/js.json').then(function(js){
         console.log(js);
@@ -118,4 +119,22 @@ window.onload = () =>{
     });
     
     
+}*/
+//4 Generators
+window.onload = () => {
+    //basic operation 
+    
+    function* generator(){
+        let x = yield 10;    //js read codes from left to right so "yield" is there to pause the reading
+        console.log(x);
+        let y = yield 5;
+        console.log(y);
+    }
+    let gen = generator(); //gen = generator iterator which sets up the generator to start reading
+    gen.next();     // gen.next() starts reading until the "yield" keyword is found. It reads 10 here.
+    gen.next(10);   //it puts value 10 after the yield, which is then assigned to x.
+    gen.next(6);
+    
+    
+
 }
