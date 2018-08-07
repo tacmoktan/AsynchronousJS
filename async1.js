@@ -20,5 +20,9 @@ window.onload = () => {
     xhr.send();
     console.log("random text");
 
+    //jquery $.get(url,callbackfunction)
+    $.get('data/js.json',function(data){
+        console.log(data);
+    })
 
 }
